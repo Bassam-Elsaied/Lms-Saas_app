@@ -20,9 +20,7 @@ function NavItems() {
           key={link.label}
           href={link.path}
           className={cn(
-            pathName === link.path
-              ? "font-bold text-[#7F8CAA]"
-              : "hover:text-[#EAEFEF]"
+            pathName === link.path ? "font-bold text-primary" : "font-semibold"
           )}
         >
           {link.label}
