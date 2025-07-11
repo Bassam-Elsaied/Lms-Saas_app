@@ -1,35 +1,33 @@
 import CompanionsCard from "@/components/CompanionsCard";
-import React from "react";
+import SearchInput from "@/components/SearchInput";
+import SubjectFilters from "@/components/SubjectFilters";
+import { getAllCompanions } from "@/lib/actions/companion.actions";
+import { getSubjectColor } from "@/lib/utils";
 
-function CompaniansLibrary() {
+async function CompaniansLibrary({ searchParams }: SearchParams) {
+  const filters = await searchParams;
+  const subject = filters.subject || "";
+  const topic = filters.topic || "";
+
+  const companions = await getAllCompanions({ subject, topic });
+
   return (
     <main>
-      <h1 className="text-2xl ">Popular Companions</h1>
-      <section className="home-section">
-        <CompanionsCard
-          id="1"
-          title="Neura the Brainy Explorer"
-          topic="Neural Network of the Brain"
-          subject="Science"
-          color="#ffda6e"
-          duration={45}
-        />
-        <CompanionsCard
-          id="2"
-          title="Countsy the Number Wizard"
-          topic=" Derivatives & Integrals"
-          subject="Maths"
-          color="#e5d0ff"
-          duration={30}
-        />
-        <CompanionsCard
-          id="3"
-          title="Verba the Vocabulary Builder"
-          topic="English Literature "
-          subject="Language"
-          color="#dbe7ff"
-          duration={30}
-        />
+      <section className="flex justify-between gap-4 max-sm:flex-col">
+        <h1>Companions Library</h1>
+        <div className="flex gap-4">
+          <SearchInput />
+          <SubjectFilters />
+        </div>
+      </section>
+      <section className="companions-grid">
+        {companions.map((companion) => (
+          <CompanionsCard
+            key={companion.id}
+            {...companion}
+            color={getSubjectColor(companion.subject)}
+          />
+        ))}
       </section>
     </main>
   );

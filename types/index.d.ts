@@ -27,7 +27,7 @@ type Companion = Models.DocumentList<Models.Document> & {
 };
 
 interface CreateCompanion {
-  name: string;
+  title: string;
   subject: string;
   topic: string;
   voice: string;
@@ -65,7 +65,6 @@ interface Avatar {
   className?: string;
 }
 
-
 interface SavedMessage {
   role: "user" | "system" | "assistant";
   content: string;
@@ -75,7 +74,7 @@ interface CompanionComponentProps {
   companionId: string;
   subject: string;
   topic: string;
-  name: string;
+  title: string;
   userName: string;
   userImage: string;
   voice: string;
